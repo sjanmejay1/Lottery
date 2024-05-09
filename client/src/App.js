@@ -8,7 +8,7 @@ const App = () => {
     web3: null,
     contract: null,
   });
-
+ 
   useEffect(() => {
     const init = async () => {
       try {
