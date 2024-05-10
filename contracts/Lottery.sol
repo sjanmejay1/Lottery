@@ -3,17 +3,18 @@ pragma solidity >=0.5.0 <0.9.0;
 
 contract Lottery{
     address public manager;
-    address payable[] public participants;
+    address payable[] public players;
+    address payable public winner;
 
     constructor()
     {
         manager=msg.sender;
     }
 
-    function participate() public payable
+    receive() external payable
     {
         require(msg.value == 1 ether ,"Please pay 1 ether only.");
-        participants.push(payable(msg.sender));
+        players.push(payable(msg.sender));
     }
 
     function getBalance() public view returns(uint)
@@ -21,23 +22,22 @@ contract Lottery{
         require(msg.sender==manager, "You are not the manager.");
         return address(this).balance;
     }
-    function Random() internal view returns(uint)
+    function random() internal view returns(uint)
     {
-        return uint(keccak256(abi.encodePacked(blockhash(block.number), block.timestamp, participants.length)));
+        return uint(keccak256(abi.encodePacked(blockhash(block.number), block.timestamp, players.length)));
     }
-    function Winner() public 
+    function pickWinner() public 
     {
         require(msg.sender==manager, "You are not the manager.");
-        require(participants.length >= 3, "Atleast 3 players should be there.");
-        uint r = Random();
-        address payable winner;
-        uint index = r%participants.length;
-        winner=participants[index];
+        require(players.length >= 3, "Atleast 3 players should be there.");
+        uint r = random();
+        uint index = r%players.length;
+        winner=players[index];
         winner.transfer(getBalance());
-        participants = new address payable[](0); 
+        players = new address payable[](0); 
     }
 
     function allPlayers() public view returns (address payable[] memory){
-        return participants;
+        return players;
     }
 }

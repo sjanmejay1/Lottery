@@ -6,7 +6,7 @@ import Lottery from "./contracts/Lottery.json";
 import Manager from "./components/Manager";
 import Players from "./components/Players";
 import Intro from "./components/Intro";
-import { Route, Link } from "react-router-dom";
+import {BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 
 import "./App.css";
@@ -42,6 +42,7 @@ const App = () => {
 
   return (
     <>
+    <Router>
       <nav className="navbar navbar-expand-lg navbar">
         <div className="container-fluid">
           <div className="collapse navbar-collapse" id="navbarNav">
@@ -57,7 +58,7 @@ const App = () => {
                   className="nav-link navtext"
                   aria-current="page"
                 >
-                  Manger
+                  Manager
                 </Link>
               </li>
               <li className="nav-item">
@@ -79,6 +80,7 @@ const App = () => {
       <Route path="/players">
         <Players address={address} state={state} />
       </Route>
+      </Router>
     </>
   );
 
