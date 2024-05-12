@@ -4,10 +4,10 @@ import "./Intro.css";
 const Intro = () => {
   return (
     <>
-      <ul className="list-group" id="list">
-        <div className="center">
+      <div className="center">
+      <ul style={{marginTop:'50px', display:'flex', flexDirection:'column',justifyContent:'center',alignItems:'center',listStyle:'none'}}>
           <li className="list-group-item" aria-disabled="true">
-            <h1>You are</h1>
+            <h2>You are</h2>
           </li>
           <li className="list-group-item">
             <Link to="/manager" className="text-decoration-none text">
@@ -18,8 +18,8 @@ const Intro = () => {
               <button className="button1 player">Player</button>
             </Link>
           </li>
-        </div>
       </ul>
+        </div>
     </>
   );
 };
